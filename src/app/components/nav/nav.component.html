@@ -8,6 +8,10 @@
         <div class="row">
 
 
+
+          
+          
+
           <div class="col-1">
             <h1 class="navbar-brand" routerLink="/">Navbar</h1>
           </div>
@@ -15,17 +19,20 @@
           <div class="col-11">
             <ul class="navbar-nav mr-auto">
 
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/">Home</a>
-              </li>
-
-              <li class="nav-item ">
-                <a class="nav-link" routerLink="/lists">Lists</a>
-              </li>
-
-              <li class="nav-item ">
-                <a class="nav-link" routerLink="/messages">Messages</a>
-              </li>
+              <ng-container *ngIf="accountService.currentUser$ | async">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/">Home</a>
+                </li>
+    
+    
+                <li class="nav-item ">
+                  <a class="nav-link" routerLink="/members">Lists</a>
+                </li>
+    
+                <li class="nav-item ">
+                  <a class="nav-link" routerLink="/messages">Messages</a>
+                </li>
+              </ng-container>
 
             </ul>
           </div>

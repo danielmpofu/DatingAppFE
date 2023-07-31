@@ -11,7 +11,7 @@ import {ToastrService} from "ngx-toastr";
 export class NavComponent implements OnInit {
   formData: any={};
 
-  constructor(private accountService: AccountService,
+  constructor(public accountService: AccountService,
               private router: Router,
               private toastr: ToastrService) {
   }

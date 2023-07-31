@@ -16,6 +16,7 @@ import {ToastrModule} from "ngx-toastr";
 import {CommonModule} from "@angular/common";
 import { MembersComponent } from './home/members/members.component';
 import { MemberDetailsComponent } from './home/member.details/member.details.component';
+import { SharedModule } from './modules/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MemberDetailsComponent } from './home/member.details/member.details.com
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    SharedModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
