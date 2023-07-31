@@ -4,15 +4,35 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
+import { HomeComponent } from './home/home/home.component';
+import { NavComponent } from './components/nav/nav.component';
+import {FormsModule} from "@angular/forms";
+import { RegisterComponent } from './components/register/register.component';
+import { MatchesComponent } from './home/matches/matches.component';
+import { ListsComponent } from './home/lists/lists.component';
+import { MessagesComponent } from './home/messages/messages.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    NavComponent,
+    RegisterComponent,
+    MatchesComponent,
+    ListsComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
