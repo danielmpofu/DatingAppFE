@@ -14,6 +14,8 @@ import { MessagesComponent } from './home/messages/messages.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import {CommonModule} from "@angular/common";
+import { MembersComponent } from './home/members/members.component';
+import { MemberDetailsComponent } from './home/member.details/member.details.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {CommonModule} from "@angular/common";
     RegisterComponent,
     MatchesComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    MembersComponent,
+    MemberDetailsComponent
   ],
   imports: [
     BrowserModule,
