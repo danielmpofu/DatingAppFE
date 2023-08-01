@@ -1,0 +1,33 @@
+<p>test-errors works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button (click)="getBadRequest()" class="btn btn-danger">Get Bad Request 400</button>
+        </div>
+        <div class="col">
+            <button (click)="getEntityValidationError()" class="btn btn-danger">Get Entity Validation Error 400</button>
+        </div>
+
+        <div class="col">
+            <button (click)="getUnauthorized()" class="btn btn-danger">Get Access Error 401</button>
+        </div>
+
+        <div class="col">
+            <button (click)="get404Error()" class="btn btn-danger">Get Not Found Error 404</button>
+        </div>
+
+        <div class="col">
+            <button (click)="get500Error()" class="btn btn-danger">Get Internal Server Error 500</button>
+        </div>
+    </div>
+
+    <div *ngIf="serverErrors.length!=0" class="mt-5">
+
+        <ul class="text-danger">
+            <li *ngFor="let error of serverErrors">
+                {{error}}
+            </li>
+        </ul>
+
+    </div>
+</div>
