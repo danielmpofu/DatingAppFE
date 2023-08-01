@@ -43,11 +43,13 @@ export class HttpInterceptor implements HttpInterceptor {
                 break;
 
               case 500:
+                this.toastr.error("internal server error");
                 const navigationExtras:NavigationExtras = {state:{error:error.error}}
                 this.router.navigateByUrl("/server-error", navigationExtras);
                 break;
 
               default:
+                this.router.navigateByUrl("/server-error");
                 this.toastr.error("Something unexpected went wrong");
                 console.log(error);
                 break;

@@ -19,6 +19,8 @@ import {MemberDetailsComponent} from './home/member.details/member.details.compo
 import {SharedModule} from './modules/shared.module';
 import {TestErrorsComponent} from './errors/test-errors/test-errors.component';
 import {HttpInterceptor} from "./_interceptors/http.interceptor";
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +33,9 @@ import {HttpInterceptor} from "./_interceptors/http.interceptor";
         MessagesComponent,
         MembersComponent,
         MemberDetailsComponent,
-        TestErrorsComponent
+        TestErrorsComponent,
+        NotFoundComponent,
+        ServerErrorComponent
     ],
     imports: [
         BrowserModule,
