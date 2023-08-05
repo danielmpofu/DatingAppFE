@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User} from "../models/user";
+import {environment} from "../../environments/environment";
 
 
 @Injectable({
@@ -12,7 +13,8 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<User|null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  accountBaseUrl: string = "http://localhost:5108/api/v1/Account/";
+   accountBaseUrl:string = environment.apiUrl+"Account/"
+  //accountBaseUrl: string = "http://localhost:5108/api/v1/Account/";
 
   constructor(private httpClient: HttpClient) {
   }
