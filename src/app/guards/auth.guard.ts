@@ -8,15 +8,21 @@ import { ToastrService } from 'ngx-toastr'
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
- 
+
   /**
    *
    */
       constructor(private accountService:AccountService, private toasterService:ToastrService) {  }
 
       canActivate(): Observable<boolean>  {
+
+         this.accountService.isLoggedIn();
+
+
         return this.accountService.currentUser$.pipe(
          map(user =>{
+
+
          if(user){
             return true;
         }else{

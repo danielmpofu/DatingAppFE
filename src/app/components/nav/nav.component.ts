@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class NavComponent implements OnInit {
   formData: any={};
+  currentUserName:String|null = '';
 
   constructor(public accountService: AccountService,
               private router: Router,
@@ -17,13 +19,18 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.accountService.currentUser$.subscribe({next:user=>{
+      if(user){
+        this.currentUserName = user.username;
+      }
+      }})
   }
 
   doLogin() {
 
     this.accountService.login(this.formData).subscribe({
       next: value => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/members');
         console.log(value);
       },
       error: err => {
@@ -34,4 +41,9 @@ export class NavComponent implements OnInit {
   }
 
 
+  doLogout() {
+    this.accountService.signOut();
+    this.router.navigateByUrl('/');
+
+  }
 }

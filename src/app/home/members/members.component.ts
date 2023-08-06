@@ -12,7 +12,8 @@ export class MembersComponent implements OnInit {
   members:Member[] =[];
   constructor(private memberService:MemberService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    console.log("members init");
     this.getMembers();
   }
 

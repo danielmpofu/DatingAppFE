@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User} from "../models/user";
 import {environment} from "../../environments/environment";
+import {Member} from "../models/member";
 
 
 @Injectable({
@@ -10,11 +11,9 @@ import {environment} from "../../environments/environment";
 })
 export class AccountService {
 
-  private currentUserSource = new BehaviorSubject<User|null>(null);
+  private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
-
-   accountBaseUrl:string = environment.apiUrl+"Account/"
-  //accountBaseUrl: string = "http://localhost:5108/api/v1/Account/";
+  accountBaseUrl: string = environment.apiUrl + "account/"
 
   constructor(private httpClient: HttpClient) {
   }
@@ -23,7 +22,7 @@ export class AccountService {
     return this.httpClient.post<User>(this.accountBaseUrl + 'login', loginData)
       .pipe(
         map((response) => {
-          const user = response;
+          const user: User = response;
           if (user) {
             localStorage.setItem("user", JSON.stringify(user));
             this.currentUserSource.next(user);
@@ -33,9 +32,15 @@ export class AccountService {
   }
 
   isLoggedIn() {
-    let user: string | null = localStorage.getItem('user');
-    return user === null;
+    let user = localStorage.getItem('user');
+    if (!user) return false;
+    let userD = JSON.parse(user);
+    this.currentUserSource.next(userD);
+    return true;
   }
 
-
+  signOut() {
+    localStorage.clear();
+    this.currentUserSource.next(null);
+  }
 }
