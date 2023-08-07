@@ -2,14 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Member} from "../models/member";
-import {map, of} from "rxjs";
+import {map, Observable, of} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MemberService {
+
     members: Member[] = [];
-    membersBaseUrl = environment.apiUrl + "users/";
+    membersBaseUrl:string = environment.apiUrl + "users/";
 
     constructor(private httpClient: HttpClient) {
     }
@@ -35,8 +36,6 @@ export class MemberService {
                 Authorization: 'Bearer ' + user.token
             })
         }
-
-
     }
 
     updateMember(member: Member) {
@@ -46,6 +45,14 @@ export class MemberService {
                 this.members[index] = {...this.members[index], ...member}
             }
         ));
-
     }
+
+    setMainPhoto(photoId: number):Observable<any|undefined> {
+        return this.httpClient.put(`${this.membersBaseUrl}set-main-photo/${photoId}`, {})
+    }
+
+    deletePhoto(id: number) {
+        return  this.httpClient.delete(this.membersBaseUrl+'delete-photo/'+id);
+    }
+
 }

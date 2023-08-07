@@ -25,22 +25,27 @@ export class AccountService {
           const user: User = response;
           if (user) {
             localStorage.setItem("user", JSON.stringify(user));
-            this.currentUserSource.next(user);
+            this.setCurrentUser(user);
           }
         })
       );
+  }
+
+  setCurrentUser(user:User|null){
+    this.currentUserSource.next(user);
   }
 
   isLoggedIn() {
     let user = localStorage.getItem('user');
     if (!user) return false;
     let userD = JSON.parse(user);
-    this.currentUserSource.next(userD);
+    this.setCurrentUser(userD);
     return true;
   }
 
   signOut() {
     localStorage.clear();
-    this.currentUserSource.next(null);
+    this.setCurrentUser(null);
   }
+
 }
