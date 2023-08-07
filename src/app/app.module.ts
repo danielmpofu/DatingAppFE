@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HomeComponent} from './home/home/home.component';
 import {NavComponent} from './components/nav/nav.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from './components/register/register.component';
 import {MatchesComponent} from './home/matches/matches.component';
 import {ListsComponent} from './home/lists/lists.component';
@@ -19,15 +19,15 @@ import {MemberDetailsComponent} from './home/member.details/member.details.compo
 import {SharedModule} from './modules/shared.module';
 import {TestErrorsComponent} from './errors/test-errors/test-errors.component';
 import {HttpInterceptor} from "./_interceptors/http.interceptor";
-import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { MemberListCardComponent } from './home/members/member-list-card/member-list-card.component';
+import {NotFoundComponent} from './errors/not-found/not-found.component';
+import {ServerErrorComponent} from './errors/server-error/server-error.component';
+import {MemberListCardComponent} from './home/members/member-list-card/member-list-card.component';
 import {JwtInterceptor} from "./_interceptors/jwt.interceptor";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
-import { MemberEditComponent } from './home/members/member-edit/member-edit.component';
+import {MemberEditComponent} from './home/members/member-edit/member-edit.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingIndicatorsInterceptor} from "./_interceptors/loading-indicators.interceptor";
-import { UploadPhotoComponent } from './home/members/upload-photo/upload-photo.component';
+import {UploadPhotoComponent} from './home/members/upload-photo/upload-photo.component';
 
 @NgModule({
     declarations: [
@@ -47,15 +47,16 @@ import { UploadPhotoComponent } from './home/members/upload-photo/upload-photo.c
         MemberEditComponent,
         UploadPhotoComponent
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    SharedModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        SharedModule,
+    ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
