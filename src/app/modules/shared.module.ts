@@ -4,6 +4,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {TabsModule} from "ngx-bootstrap/tabs";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {NgxSpinnerModule} from "ngx-spinner";
+import {FileUploadModule} from "ng2-file-upload";
 
 
 
@@ -14,11 +15,12 @@ import {NgxSpinnerModule} from "ngx-spinner";
     ToastrModule.forRoot(),
     TabsModule.forRoot(),
     BsDropdownModule,
+    FileUploadModule,
     NgxSpinnerModule.forRoot({ type: 'line-scale-party' })
   ],
 
   exports:[
-    ToastrModule,TabsModule, BsDropdownModule, NgxSpinnerModule
+    ToastrModule,FileUploadModule,TabsModule, BsDropdownModule, NgxSpinnerModule
   ]
 })
 export class SharedModule { }

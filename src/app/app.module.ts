@@ -27,6 +27,7 @@ import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import { MemberEditComponent } from './home/members/member-edit/member-edit.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingIndicatorsInterceptor} from "./_interceptors/loading-indicators.interceptor";
+import { UploadPhotoComponent } from './home/members/upload-photo/upload-photo.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import {LoadingIndicatorsInterceptor} from "./_interceptors/loading-indicators.i
         NotFoundComponent,
         ServerErrorComponent,
         MemberListCardComponent,
-        MemberEditComponent
+        MemberEditComponent,
+        UploadPhotoComponent
     ],
   imports: [
     BrowserModule,

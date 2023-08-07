@@ -7,11 +7,6 @@
       <div class="col align-self-start">
         <div class="row">
 
-
-
-
-
-
           <div class="col-1">
             <h1 class="navbar-brand" routerLink="/">Navbar</h1>
           </div>
@@ -74,7 +69,11 @@
 
       <div *ngIf="(accountService.isLoggedIn())" class="col-2 align-self-end">
         <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-primary dropdown-toggle"
+          <img src="{{photoUrl}}" alt="{{currentUserName}} photo" >
+          <button id="button-basic"
+                  dropdownToggle
+                  type="button"
+                  class="btn btn-outline-primary dropdown-toggle"
                   aria-controls="dropdown-basic">
             Welcome {{currentUserName}}
              <span class="caret"></span>

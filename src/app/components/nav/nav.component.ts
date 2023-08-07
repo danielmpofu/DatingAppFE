@@ -12,6 +12,7 @@ import {map} from "rxjs";
 export class NavComponent implements OnInit {
   formData: any={};
   currentUserName:String|null = '';
+  photoUrl:string|undefined;
 
   constructor(public accountService: AccountService,
               private router: Router,
@@ -22,6 +23,7 @@ export class NavComponent implements OnInit {
     this.accountService.currentUser$.subscribe({next:user=>{
       if(user){
         this.currentUserName = user.username;
+        this.photoUrl = user.photoUrl;
       }
       }})
   }
