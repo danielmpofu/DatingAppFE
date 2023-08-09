@@ -28,6 +28,7 @@ import {MemberEditComponent} from './home/members/member-edit/member-edit.compon
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingIndicatorsInterceptor} from "./_interceptors/loading-indicators.interceptor";
 import {UploadPhotoComponent} from './home/members/upload-photo/upload-photo.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import {UploadPhotoComponent} from './home/members/upload-photo/upload-photo.com
         ServerErrorComponent,
         MemberListCardComponent,
         MemberEditComponent,
-        UploadPhotoComponent
+        UploadPhotoComponent,
+        LandingComponent
     ],
     imports: [
         BrowserModule,

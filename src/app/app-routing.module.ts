@@ -13,14 +13,15 @@ import {NotFoundComponent} from './errors/not-found/not-found.component';
 import {ServerErrorComponent} from './errors/server-error/server-error.component';
 import {MemberEditComponent} from "./home/members/member-edit/member-edit.component";
 import {preventUnsavedChangesGuard} from "./guards/prevent-unsaved-changes.guard";
+import {LandingComponent} from "./landing/landing.component";
 
 const routes: Routes = [
-  // {path: "", component: HomeComponent,},
+  {path: "", redirectTo: "landing", pathMatch:"full"},
+  {path: "landing", component: LandingComponent,},
   {
     path: "", component: HomeComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
-    //pathMatch:'full',
     children: [
       //{path: '', component: HomeComponent},
       {path: 'matches', component: MatchesComponent},
