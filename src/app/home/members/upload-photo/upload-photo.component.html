@@ -47,7 +47,8 @@
         <input type="file" ng2FileSelect [uploader]="uploader"/>
     </div>
 
-    <div *ngIf="uploader?.queue?.length!=0" class="col-md-9" style="margin-bottom: 40px">
+    <div *ngIf="uploader?.queue?.length!=0" class="col-md-9"
+         style="margin-bottom: 40px">
 
         <h3>Upload queue</h3>
         <p>Queue length: {{ uploader?.queue?.length }}</p>
@@ -76,7 +77,8 @@
                 </div>
             </div>
             <button type="button" class="btn btn-success btn-s"
-                    (click)="uploader?.uploadAll()" [disabled]="!uploader?.getNotUploadedItems()?.length">
+                    (click)="uploader?.uploadAll()"
+                    [disabled]="!uploader?.getNotUploadedItems()?.length">
                 <span class="fa fa-upload"></span> Upload all
             </button>
             <button type="button" class="btn btn-warning btn-s"

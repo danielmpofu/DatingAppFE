@@ -1,30 +1,33 @@
-import {Component, Input, OnInit, Self} from '@angular/core';
-import {ControlValueAccessor, FormControl, NgControl} from "@angular/forms";
+import {Component, forwardRef, Input, OnInit, Self} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 
 @Component({
-    selector: 'app-text-input',
-    templateUrl: './text-input.component.html',
-    styleUrls: ['./text-input.component.css']
+  selector: 'app-text-input',
+  templateUrl: './text-input.component.html',
+  styleUrls: ['./text-input.component.css'],
 })
 export class TextInputComponent implements ControlValueAccessor {
 
-    @Input() label: string = '';
-    @Input() type: string = 'text'
+  @Input() label: string = '';
+  @Input() type: string = 'text'
+  @Input() name: string = ''
 
-    constructor(@Self() public ngControl: NgControl) {
-        this.ngControl.valueAccessor = this;
-    }
+  constructor(@Self() public ngControl: NgControl) {
+    this.ngControl.valueAccessor = this;
+    this.name = this.label.replace(" ", "");
+  }
 
-    get control() :FormControl{
-        return this.ngControl.control as FormControl;
-    }
-    registerOnChange(fn: any): void {
-    }
+  get control(): FormControl {
+    return this.ngControl.control as FormControl;
+  }
 
-    registerOnTouched(fn: any): void {
-    }
+  registerOnChange(fn: any): void {
+  }
 
-    writeValue(obj: any): void {
-    }
+  registerOnTouched(fn: any): void {
+  }
+
+  writeValue(obj: any): void {
+  }
 
 }

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {forwardRef, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 //"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
 import {AppRoutingModule} from './app-routing.module';
@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HomeComponent} from './home/home/home.component';
 import {NavComponent} from './components/nav/nav.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from './components/register/register.component';
 import {MatchesComponent} from './home/matches/matches.component';
 import {ListsComponent} from './home/lists/lists.component';
@@ -28,46 +28,49 @@ import {MemberEditComponent} from './home/members/member-edit/member-edit.compon
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingIndicatorsInterceptor} from "./_interceptors/loading-indicators.interceptor";
 import {UploadPhotoComponent} from './home/members/upload-photo/upload-photo.component';
-import { LandingComponent } from './landing/landing.component';
-import { TextInputComponent } from './components/text-input/text-input.component';
+import {LandingComponent} from './landing/landing.component';
+import {TextInputComponent} from './components/text-input/text-input.component';
+import {DatePickerComponent} from './components/date-picker/date-picker.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        NavComponent,
-        RegisterComponent,
-        MatchesComponent,
-        ListsComponent,
-        MessagesComponent,
-        MembersComponent,
-        MemberDetailsComponent,
-        TestErrorsComponent,
-        NotFoundComponent,
-        ServerErrorComponent,
-        MemberListCardComponent,
-        MemberEditComponent,
-        UploadPhotoComponent,
-        LandingComponent,
-        UploadPhotoComponent,
-        TextInputComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        BrowserAnimationsModule,
-        SharedModule,
-    ],
-    providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: LoadingIndicatorsInterceptor, multi: true},
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NavComponent,
+    RegisterComponent,
+    MatchesComponent,
+    ListsComponent,
+    MessagesComponent,
+    MembersComponent,
+    MemberDetailsComponent,
+    TestErrorsComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    MemberListCardComponent,
+    MemberEditComponent,
+    UploadPhotoComponent,
+    LandingComponent,
+    UploadPhotoComponent,
+    TextInputComponent,
+    DatePickerComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    SharedModule,
+  ],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingIndicatorsInterceptor, multi: true},
+
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

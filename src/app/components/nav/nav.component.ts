@@ -33,8 +33,7 @@ export class NavComponent implements OnInit {
 
     this.accountService.login(this.formData).subscribe({
       next: value => {
-        this.router.navigateByUrl('/members');
-        console.log(value);
+        //this.router.navigateByUrl('/members');
       },
       error: err => {
         this.toastr.error("Unable to login");

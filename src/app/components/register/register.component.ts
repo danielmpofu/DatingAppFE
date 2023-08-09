@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
-import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validator, ValidatorFn, Validators} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -13,17 +15,21 @@ export class RegisterComponent implements OnInit {
 
   formData: any = {}
   formValidators = [Validators.required];
+  passwordValidators = [Validators.minLength(4), Validators.maxLength(8)];
 
 
   initializeForm() {
-    this.registerForm = new FormGroup({
-      username: new FormControl('',
-        this.formValidators),
-      password: new FormControl('',
-        [Validators.required, Validators.min(4), Validators.max(8)]),
-      confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')]),
-      phone: new FormControl('', this.formValidators),
-      email: new FormControl('', this.formValidators),
+    this.registerForm = this.formBuilderService.group({
+      gender: [['Male'], [...this.formValidators]],
+      username: ['', [...this.formValidators]],
+      knownAs: ['', [...this.formValidators]],
+      dateOfBirth: ['', [...this.formValidators]],
+      city: ['', [...this.formValidators]],
+      country: ['', [...this.formValidators]],
+      password: ['', [...this.formValidators, ...this.passwordValidators]],
+      confirmPassword: ['', [...this.formValidators, ...this.passwordValidators, this.matchValues('password')]],
+      phone: ['', [...this.formValidators, Validators.minLength(8), Validators.maxLength(11)]],
+      email: ['', [...this.formValidators, Validators.email]],
     });
     this.registerForm
       .controls["password"]
@@ -35,11 +41,17 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+              private formBuilderService: FormBuilder,
+              private toastrService: ToastrService,
+              private router: Router,
+              //private accountService:AccountService,
+  ) {
+    this.initializeForm();
   }
 
   ngOnInit(): void {
-    this.initializeForm();
+
   }
 
   matchValues(matchTo: string): ValidatorFn {
@@ -54,7 +66,25 @@ export class RegisterComponent implements OnInit {
   }
 
   doRegister(): void {
-    console.log(this.registerForm);
+    if (this.registerForm.valid) {
+      this.accountService.register(this.registerForm.value).subscribe({
+        next: resp => {
+          console.log(resp);
+          // this.registerForm.reset();
+          // this.accountService.login({
+          //   username: this.registerForm.value.username,
+          //   password: this.registerForm.value.password
+          // });
+
+          //this.router.navigateByUrl('/members');
+        },error: err => {
+          console.log(err);
+        }
+      })
+    } else {
+      this.toastrService.error("You have some errors, please fix them to proceed.");
+    }
+
   }
 
 }
