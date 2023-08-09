@@ -29,6 +29,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingIndicatorsInterceptor} from "./_interceptors/loading-indicators.interceptor";
 import {UploadPhotoComponent} from './home/members/upload-photo/upload-photo.component';
 import { LandingComponent } from './landing/landing.component';
+import { TextInputComponent } from './components/text-input/text-input.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,9 @@ import { LandingComponent } from './landing/landing.component';
         MemberListCardComponent,
         MemberEditComponent,
         UploadPhotoComponent,
-        LandingComponent
+        LandingComponent,
+        UploadPhotoComponent,
+        TextInputComponent
     ],
     imports: [
         BrowserModule,
