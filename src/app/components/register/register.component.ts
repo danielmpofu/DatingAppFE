@@ -21,6 +21,15 @@ export class RegisterComponent implements OnInit {
             phone: new FormControl(),
             email: new FormControl(),
         });
+
+        this.registerForm
+            .controls["password"]
+            .valueChanges
+            .subscribe({
+                next: () => {
+                    this.registerForm.controls['confirmPassword'].updateValueAndValidity()
+                }
+            });
     }
 
     constructor(private accountService: AccountService) {
