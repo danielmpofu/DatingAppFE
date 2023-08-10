@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Member} from "../../models/member";
 import {MemberService} from "../../services/member.service";
+import {Pagination} from "../../models/pagination";
 
 @Component({
   selector: 'app-members',
@@ -10,6 +11,9 @@ import {MemberService} from "../../services/member.service";
 export class MembersComponent implements OnInit {
 
   members:Member[] =[];
+  pagination: Pagination | undefined;
+  pageNumber:number = 1;
+
   constructor(private memberService:MemberService) { }
 
   ngOnInit() {
