@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Member} from "../models/member";
 import {map, Observable, of} from "rxjs";
@@ -16,14 +16,14 @@ export class MemberService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getMembers(page?: number, itemsPerPage?: number) {
+  getMembers(page?: number, pageSize?: number) {
     let params = new HttpParams();
-    if (page && itemsPerPage) {
-      params = params.append("itemsPerPage", itemsPerPage);
+    if (page && pageSize) {
+      params = params.append("pageSize", pageSize);
       params = params.append("pageNumber", page);
     }
     //if (this.members.length != 0) return of(this.members);
-    return this.httpClient.get<Member[]>(this.membersBaseUrl, {observe: 'response'})
+    return this.httpClient.get<Member[]>(this.membersBaseUrl,{observe: 'response',params:params})
       .pipe(map(response => {
         if (response.body) {
           this.paginatedResult.result = response.body;
@@ -33,6 +33,7 @@ export class MemberService {
           this.paginatedResult.pagination = JSON.parse(pagination);
         }
 
+        return  this.paginatedResult;
       }));
   }
 

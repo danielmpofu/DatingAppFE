@@ -3,3 +3,17 @@
     <app-member-list-card [member]="member"></app-member-list-card>
   </div>
 </div>
+
+<div class="justify-content-center d-flex" *ngIf="pagination">
+  <pagination [boundaryLinks]="true"
+              [totalItems]="33"
+              [itemsPerPage]="pagination.itemsPerPage"
+              [maxSize]="10"
+              [(ngModel)]="pagination.currentPage"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+  </pagination>
+</div>

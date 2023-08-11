@@ -31,6 +31,7 @@ import {UploadPhotoComponent} from './home/members/upload-photo/upload-photo.com
 import {LandingComponent} from './landing/landing.component';
 import {TextInputComponent} from './components/text-input/text-input.component';
 import {DatePickerComponent} from './components/date-picker/date-picker.component';
+import {PaginationModule} from "ngx-bootstrap/pagination";
 
 @NgModule({
   declarations: [
@@ -54,16 +55,17 @@ import {DatePickerComponent} from './components/date-picker/date-picker.componen
     TextInputComponent,
     DatePickerComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    SharedModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        PaginationModule,
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
