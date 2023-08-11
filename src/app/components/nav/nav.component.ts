@@ -10,8 +10,10 @@ import {map} from "rxjs";
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+
   formData: any = {};
-  knownAs: String | null = '';
+  knownAs: string | null = '';
+  currentUserName: string  = '';
   photoUrl: string | undefined;
 
   constructor(public accountService: AccountService,
@@ -25,6 +27,7 @@ export class NavComponent implements OnInit {
         if (user) {
           this.knownAs = user.knownAs;
           this.photoUrl = user.photoUrl;
+          this.currentUserName = user.username;
         }
       }
     })

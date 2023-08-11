@@ -18,31 +18,47 @@ export class MembersComponent implements OnInit {
   pagination: Pagination | undefined;
   pageNumber: number = 1;
   pageSize: number = 5;
-  initiated:boolean = false;
-  currentUser:User|undefined;
-  userParams:UserParams|undefined;
+  initiated: boolean = false;
+  currentUser: User | undefined;
+  userParams: UserParams | undefined;
 
-  constructor(private memberService: MemberService,private accountService:AccountService) {
+  genderList = [
+    {value:"male",display:"Male"},
+    {value:"female",display:"Female"},
+  ];
 
+  resetFilters(){
+    if(this.currentUser){
+      this.userParams = new UserParams(this.currentUser);
+      //re load all the users
+      this.loadMembers();
+    }
+  }
+
+  constructor(private memberService: MemberService, private accountService: AccountService) {
+    this.getLoggedInUser();
   }
 
   ngOnInit() {
     console.log("members init");
     this.loadMembers();
   }
-  getLoggedInUser(){
+
+  getLoggedInUser() {
     this.accountService.currentUser$.pipe(take(1))
       .subscribe({
-        next:user=>{
-          if(user){
-            this.userParams =
+        next: user => {
+          if (user) {
+            this.currentUser = user;
+            this.userParams = new UserParams(user);
           }
         }
       });
   }
 
   loadMembers(): void {
-    this.memberService.getMembers(this.pageNumber, this.pageSize,)
+    if (!this.userParams) return;
+    this.memberService.getMembers(this.userParams)
       .subscribe({
         next: value => {
           if (value) {
@@ -55,12 +71,10 @@ export class MembersComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    console.log(this.pagination)
-    console.log(event)
-    if (this.pageNumber === event.page && !this.initiated) return;
-    this.pageNumber = event.page;
-    this.loadMembers();
-    if(!this.initiated) this.initiated = true;
+    if (this.userParams && this.userParams.pageNumber === event.page) {
+      this.userParams.pageNumber = event.page;
+      this.loadMembers();
+    }
   }
 
 }

@@ -21,6 +21,7 @@ export class MemberService {
     let params = new HttpParams();
     params = params.append("pageSize", userParams.pageSize);
     params = params.append("pageNumber", userParams.pageNumber);
+    params = params.append("gender",userParams.gender);
 
     return params;
   }
@@ -28,7 +29,7 @@ export class MemberService {
   getMembers(userParams: UserParams) {
 
     //if (this.members.length != 0) return of(this.members);
-    this.getPaginatedResults<Member[]>(this.membersBaseUrl,
+    return this.getPaginatedResults<Member[]>(this.membersBaseUrl,
       this.createHttpParams(userParams));
   }
 
