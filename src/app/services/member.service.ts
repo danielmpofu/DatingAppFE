@@ -4,36 +4,49 @@ import {environment} from "../../environments/environment";
 import {Member} from "../models/member";
 import {map, Observable, of} from "rxjs";
 import {PaginatedResult} from "../models/pagination";
+import {UserParams} from "../models/userParams";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
-  paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
+
   members: Member[] = [];
   membersBaseUrl: string = environment.apiUrl + "users/";
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getMembers(page?: number, pageSize?: number) {
+  createHttpParams(userParams: UserParams): HttpParams {
     let params = new HttpParams();
-    if (page && pageSize) {
-      params = params.append("pageSize", pageSize);
-      params = params.append("pageNumber", page);
-    }
+    params = params.append("pageSize", userParams.pageSize);
+    params = params.append("pageNumber", userParams.pageNumber);
+
+    return params;
+  }
+
+  getMembers(userParams: UserParams) {
+
     //if (this.members.length != 0) return of(this.members);
-    return this.httpClient.get<Member[]>(this.membersBaseUrl,{observe: 'response',params:params})
+    this.getPaginatedResults<Member[]>(this.membersBaseUrl,
+      this.createHttpParams(userParams));
+  }
+
+  getPaginatedResults<T>(url: string, params: HttpParams) {
+
+    let paginatedResult: PaginatedResult<T> = new PaginatedResult<T>;
+    //if (this.members.length != 0) return of(this.members);
+    return this.httpClient.get<T>(url, {observe: 'response', params: params})
       .pipe(map(response => {
         if (response.body) {
-          this.paginatedResult.result = response.body;
+          paginatedResult.result = response.body;
         }
         const pagination = response.headers.get('Pagination');
         if (pagination) {
-          this.paginatedResult.pagination = JSON.parse(pagination);
+          paginatedResult.pagination = JSON.parse(pagination);
         }
 
-        return  this.paginatedResult;
+        return paginatedResult;
       }));
   }
 

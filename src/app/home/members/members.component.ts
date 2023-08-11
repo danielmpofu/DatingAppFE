@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Member} from "../../models/member";
 import {MemberService} from "../../services/member.service";
 import {Pagination} from "../../models/pagination";
+import {User} from "../../models/user";
+import {AccountService} from "../../services/account.service";
+import {take} from "rxjs";
+import {UserParams} from "../../models/userParams";
 
 @Component({
   selector: 'app-members',
@@ -15,13 +19,26 @@ export class MembersComponent implements OnInit {
   pageNumber: number = 1;
   pageSize: number = 5;
   initiated:boolean = false;
+  currentUser:User|undefined;
+  userParams:UserParams|undefined;
 
-  constructor(private memberService: MemberService) {
+  constructor(private memberService: MemberService,private accountService:AccountService) {
+
   }
 
   ngOnInit() {
     console.log("members init");
     this.loadMembers();
+  }
+  getLoggedInUser(){
+    this.accountService.currentUser$.pipe(take(1))
+      .subscribe({
+        next:user=>{
+          if(user){
+            this.userParams =
+          }
+        }
+      });
   }
 
   loadMembers(): void {

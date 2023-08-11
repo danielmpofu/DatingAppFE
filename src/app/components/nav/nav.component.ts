@@ -10,9 +10,9 @@ import {map} from "rxjs";
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  formData: any={};
-  currentUserName:String|null = '';
-  photoUrl:string|undefined;
+  formData: any = {};
+  knownAs: String | null = '';
+  photoUrl: string | undefined;
 
   constructor(public accountService: AccountService,
               private router: Router,
@@ -20,12 +20,14 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.accountService.currentUser$.subscribe({next:user=>{
-      if(user){
-        this.currentUserName = user.username;
-        this.photoUrl = user.photoUrl;
+    this.accountService.currentUser$.subscribe({
+      next: user => {
+        if (user) {
+          this.knownAs = user.knownAs;
+          this.photoUrl = user.photoUrl;
+        }
       }
-      }})
+    })
   }
 
 
