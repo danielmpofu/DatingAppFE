@@ -7,11 +7,11 @@
       <div class="col align-self-start">
         <div class="row">
 
-          <div class="col-1">
+          <div class="col-2" >
             <h1 class="navbar-brand" routerLink="/">Dating App</h1>
           </div>
 
-          <div class="col-11">
+          <div class="col-10">
             <ul class="navbar-nav mr-auto">
 
               <ng-container *ngIf="accountService.currentUser$ | async">
@@ -21,7 +21,11 @@
 
 
                 <li class="nav-item ">
-                  <a class="nav-link" routerLink="/members">Lists</a>
+                  <a class="nav-link" routerLink="/lists">Lists</a>
+                </li>
+
+                <li class="nav-item ">
+                  <a class="nav-link" routerLink="/members">Members</a>
                 </li>
 
                 <li class="nav-item ">

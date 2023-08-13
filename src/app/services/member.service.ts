@@ -13,6 +13,7 @@ export class MemberService {
 
   members: Member[] = [];
   membersBaseUrl: string = environment.apiUrl + "users/";
+  likesBaseUrl: string = environment.apiUrl + "likes/";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -21,7 +22,7 @@ export class MemberService {
     let params = new HttpParams();
     params = params.append("pageSize", userParams.pageSize);
     params = params.append("pageNumber", userParams.pageNumber);
-    params = params.append("gender",userParams.gender);
+    params = params.append("gender", userParams.gender);
 
     return params;
   }
@@ -46,10 +47,18 @@ export class MemberService {
         if (pagination) {
           paginatedResult.pagination = JSON.parse(pagination);
         }
-
         return paginatedResult;
       }));
   }
+
+  addLike(username: string) {
+    return this.httpClient.post(this.likesBaseUrl ,{})
+  }
+
+  getLikes(predicate:string){
+   return  this.httpClient.get<Member[]>(this.likesBaseUrl+"?predicate="+predicate);
+  }
+
 
   getMember(username: string) {
     let member: Member | undefined = this.members.find(mem => mem.userName === username);
