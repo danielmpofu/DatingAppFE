@@ -32,6 +32,7 @@ import {LandingComponent} from './landing/landing.component';
 import {TextInputComponent} from './components/text-input/text-input.component';
 import {DatePickerComponent} from './components/date-picker/date-picker.component';
 import {PaginationModule} from "ngx-bootstrap/pagination";
+import {ButtonsModule} from "ngx-bootstrap/buttons";
 
 @NgModule({
   declarations: [
@@ -55,17 +56,18 @@ import {PaginationModule} from "ngx-bootstrap/pagination";
     TextInputComponent,
     DatePickerComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        BrowserAnimationsModule,
-        SharedModule,
-        PaginationModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    SharedModule,
+    PaginationModule,
+    ButtonsModule,
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

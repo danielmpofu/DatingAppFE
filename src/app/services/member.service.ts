@@ -7,6 +7,7 @@ import {PaginatedResult} from "../models/pagination";
 import {UserParams} from "../models/userParams";
 import {User} from "../models/user";
 import {AccountService} from "./account.service";
+import {createPaginationParams, getPaginatedResults} from "./paginationHelper";
 
 @Injectable({
   providedIn: 'root'
@@ -20,49 +21,14 @@ export class MemberService {
   constructor(private httpClient: HttpClient, private accountService: AccountService) {
   }
 
-  createPaginationParams(userParams: UserParams): HttpParams {
-    let params = new HttpParams();
-    /*
-    *  gender:string;
-  minAge:number = 18;
-  maxAge:number = 99;
-  pageSize:number = 10;
-  pageNumber:number = 1;
-    * */
 
-    params = params.append("pageSize", userParams.pageSize);
-    params = params.append("pageNumber", userParams.pageNumber);
-    params = params.append("gender", userParams.gender);
-    params = params.append("maxAge", userParams.maxAge);
-    params = params.append("minAge", userParams.minAge);
-    params = params.append("predicate", userParams.predicate);
-
-    return params;
-  }
-
-  getMembers(userParams: UserParams) {
-
+  getMembers(userParams: UserParams):Observable<PaginatedResult<Member[]>> {
     //if (this.members.length != 0) return of(this.members);
-    return this.getPaginatedResults<Member[]>(this.membersBaseUrl,
-      this.createPaginationParams(userParams));
+    return getPaginatedResults<Member[]>(this.membersBaseUrl,
+      createPaginationParams(userParams), this.httpClient);
   }
 
-  getPaginatedResults<T>(url: string, params: HttpParams) {
 
-    let paginatedResult: PaginatedResult<T> = new PaginatedResult<T>;
-    //if (this.members.length != 0) return of(this.members);
-    return this.httpClient.get<T>(url, {observe: 'response', params: params})
-      .pipe(map(response => {
-        if (response.body) {
-          paginatedResult.result = response.body;
-        }
-        const pagination = response.headers.get('Pagination');
-        if (pagination) {
-          paginatedResult.pagination = JSON.parse(pagination);
-        }
-        return paginatedResult;
-      }));
-  }
 
   addLike(username: string) {
     return this.httpClient.post(this.likesBaseUrl+username, {})
@@ -80,9 +46,9 @@ export class MemberService {
     userParams.predicate = predicate;
     userParams.pageNumber = pageNumber;
     userParams.pageSize = pageSize;
-    let params: HttpParams = this.createPaginationParams(userParams);
+    let params: HttpParams = createPaginationParams(userParams);
     // return this.httpClient.get<Member[]>(this.likesBaseUrl ,{params: params});
-    return this.getPaginatedResults<Member[]>(this.likesBaseUrl+"user-likes", params);
+    return getPaginatedResults<Member[]>(this.likesBaseUrl+"user-likes", params,this.httpClient);
   }
 
 
