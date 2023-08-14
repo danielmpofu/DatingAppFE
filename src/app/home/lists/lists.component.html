@@ -1,33 +1,48 @@
 <div class="text-center mt-3">
-<h2>Members {{predicate === "liked"?"I liked":"who liked me"}} </h2>
+  <h2>Members {{predicate === "liked" ? "I liked" : "who liked me"}} </h2>
 
-<div class="container mt-3">
+  <div class="container mt-3">
     <div class="d-flex">
-        <div class="btn-group" name="predicates">
-            <button type="button"
-            [(ngModel)] = "predicate"
-            btnRadio = "liked"
-             class="btn btn-group">Members I Like</button>
+      <div class="btn-group" name="predicates">
+        <button type="button"
+                [(ngModel)]="predicate"
+                btnRadio="liked"
+                class="btn btn-group">Members I Like
+        </button>
 
-             <button type="button"
-             [(ngModel)] = "predicate"
-             btnRadio = "likedBy"
-              class="btn btn-group">Members Who Liked Me</button>
-        </div>
+        <button type="button"
+                [(ngModel)]="predicate"
+                btnRadio="likedBy"
+                class="btn btn-group">Members Who Liked Me
+        </button>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="row mt-3">
+  <div class="row mt-3">
     <div class="col-2" *ngFor="let member of members">
-        <app-member-list-card [member]="member"></app-member-list-card>
+      <app-member-list-card [member]="member"></app-member-list-card>
     </div>
-</div>
-</div>
+  </div>
 
-<!-- 
-<div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-secondary">Left</button>
-    <button type="button" class="btn btn-secondary">Middle</button>
-    <button type="button" class="btn btn-secondary">Right</button>
-  </div> -->
-  
+  <div class="justify-content-center d-flex" *ngIf="pagination">
+    <pagination [boundaryLinks]="true"
+                [totalItems]="33"
+                [itemsPerPage]="pagination.itemsPerPage"
+                [maxSize]="10"
+                [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChangedEvent($event)"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;">
+    </pagination>
+
+  </div>
+
+  <!--
+  <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-secondary">Left</button>
+      <button type="button" class="btn btn-secondary">Middle</button>
+      <button type="button" class="btn btn-secondary">Right</button>
+    </div> -->

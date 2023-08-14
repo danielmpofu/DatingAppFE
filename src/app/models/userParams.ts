@@ -6,6 +6,7 @@ export class UserParams{
   maxAge:number = 99;
   pageSize:number = 10;
   pageNumber:number = 1;
+  predicate:string = 'liked';
 
   constructor(user:User) {
     this.gender = user.gender === "female"?"male":"female";

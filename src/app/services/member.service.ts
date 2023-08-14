@@ -5,6 +5,8 @@ import {Member} from "../models/member";
 import {map, Observable, of} from "rxjs";
 import {PaginatedResult} from "../models/pagination";
 import {UserParams} from "../models/userParams";
+import {User} from "../models/user";
+import {AccountService} from "./account.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +17,25 @@ export class MemberService {
   membersBaseUrl: string = environment.apiUrl + "users/";
   likesBaseUrl: string = environment.apiUrl + "likes/";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private accountService: AccountService) {
   }
 
-  createHttpParams(userParams: UserParams): HttpParams {
+  createPaginationParams(userParams: UserParams): HttpParams {
     let params = new HttpParams();
+    /*
+    *  gender:string;
+  minAge:number = 18;
+  maxAge:number = 99;
+  pageSize:number = 10;
+  pageNumber:number = 1;
+    * */
+
     params = params.append("pageSize", userParams.pageSize);
     params = params.append("pageNumber", userParams.pageNumber);
     params = params.append("gender", userParams.gender);
+    params = params.append("maxAge", userParams.maxAge);
+    params = params.append("minAge", userParams.minAge);
+    params = params.append("predicate", userParams.predicate);
 
     return params;
   }
@@ -31,7 +44,7 @@ export class MemberService {
 
     //if (this.members.length != 0) return of(this.members);
     return this.getPaginatedResults<Member[]>(this.membersBaseUrl,
-      this.createHttpParams(userParams));
+      this.createPaginationParams(userParams));
   }
 
   getPaginatedResults<T>(url: string, params: HttpParams) {
@@ -52,11 +65,24 @@ export class MemberService {
   }
 
   addLike(username: string) {
-    return this.httpClient.post(this.likesBaseUrl ,{})
+    return this.httpClient.post(this.likesBaseUrl+username, {})
   }
 
-  getLikes(predicate:string){
-   return  this.httpClient.get<Member[]>(this.likesBaseUrl+"?predicate="+predicate);
+  getLikes(predicate: string, pageNumber: number, pageSize: number) {
+
+    let user: User | null;
+    this.accountService.currentUser$.subscribe({
+      next: us => {
+        if(us)  user = us;
+      }
+    });
+    let userParams: UserParams = new UserParams(user!);
+    userParams.predicate = predicate;
+    userParams.pageNumber = pageNumber;
+    userParams.pageSize = pageSize;
+    let params: HttpParams = this.createPaginationParams(userParams);
+    // return this.httpClient.get<Member[]>(this.likesBaseUrl ,{params: params});
+    return this.getPaginatedResults<Member[]>(this.likesBaseUrl+"user-likes", params);
   }
 
 
