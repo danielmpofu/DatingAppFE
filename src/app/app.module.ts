@@ -13,7 +13,7 @@ import {ListsComponent} from './home/lists/lists.component';
 import {MessagesComponent} from './home/messages/messages.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MembersComponent} from './home/members/members.component';
 import {MemberDetailsComponent} from './home/member.details/member.details.component';
 import {SharedModule} from './modules/shared.module';
@@ -33,6 +33,7 @@ import {TextInputComponent} from './components/text-input/text-input.component';
 import {DatePickerComponent} from './components/date-picker/date-picker.component';
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {ButtonsModule} from "ngx-bootstrap/buttons";
+import { ChatComponent } from './home/members/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -54,20 +55,22 @@ import {ButtonsModule} from "ngx-bootstrap/buttons";
     LandingComponent,
     UploadPhotoComponent,
     TextInputComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    ChatComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    PaginationModule,
-    ButtonsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        PaginationModule,
+        ButtonsModule,
+        NgOptimizedImage,
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

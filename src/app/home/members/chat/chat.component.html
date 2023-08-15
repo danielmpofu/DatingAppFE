@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="messaging">
+    <div class="inbox_msg">
+
+      <div class="mesgs">
+        <div class="msg_history">
+
+
+          <ng-container *ngFor="let message of messages.reverse()">
+
+            <div *ngIf="myUsername !== message.recipientUsername" class="outgoing_msg">
+              <div class="sent_msg">
+                <p>{{message.content}} -from me</p>
+                <span class="time_date">{{message.messageSent| date:'short'}}</span></div>
+            </div>
+
+
+            <div  *ngIf="myUsername === message.recipientUsername" class="row mt-1 mb-1">
+              <div class="col-6 bg-light">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="img-thumbnail"><img src="{{message.recipientPhoto}}" alt="sunil"></div>
+                  </div>
+                  <div class="col-9">
+                    <div class="row">
+                      <div class="col-2"><p class="time_date fw-bold">{{message.senderUserName}}</p> </div>
+                      <div class="col-4"></div>
+                      <div class="col-6"><span class="time_date">{{message.messageSent| date:'short'}}</span></div>
+                    </div>
+                    <p>{{message.content}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6"></div>
+            </div>
+
+<!--            <div  *ngIf="myUsername === message.recipientUsername" class="incoming_msg ">-->
+<!--              <div class="incoming_msg_img"><img src="{{message.recipientPhoto}}" alt="sunil"></div>-->
+<!--              <div class="received_msg">-->
+<!--                <div style="background: #646464"   class="received_withd_msg">-->
+<!--                  <div  class="row">-->
+<!--                    <div class="col-1"></div>-->
+<!--                    <div class="col-5"></div>-->
+<!--                    <div class="col-3"></div>-->
+<!--                  </div>-->
+<!--                  -->
+<!--                </div>-->
+
+
+<!--              </div>-->
+<!--            </div>-->
+          </ng-container>
+
+
+        </div>
+        <div class="type_msg">
+          <div class="input_msg_write">
+
+            <input required
+                   type="text"
+                   class="write_msg"
+                   name="content"
+                   [(ngModel)]="outgoingMessage.content"
+                   placeholder="Type a message"/>
+            <button (click)="sendMessage()"
+                    class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

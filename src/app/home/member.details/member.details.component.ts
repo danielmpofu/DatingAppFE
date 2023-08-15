@@ -1,7 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Member} from "../../models/member";
 import {MemberService} from "../../services/member.service";
 import {ActivatedRoute} from "@angular/router";
+import {TabDirective, TabsetComponent} from "ngx-bootstrap/tabs";
+import {MessageService} from "../../services/message.service";
+import {Message} from "../../models/message";
 
 
 @Component({
@@ -12,10 +15,33 @@ import {ActivatedRoute} from "@angular/router";
 export class MemberDetailsComponent implements OnInit {
 
   member: Member | undefined;
+  @ViewChild('memberTabs') memberTabs?: TabsetComponent;
+  activeTab?: TabDirective;
+  messages: Message[] = [];
 
-  constructor(private memberService: MemberService, private route: ActivatedRoute) {
+  constructor(private memberService: MemberService,
+              private messageService: MessageService,
+              private route: ActivatedRoute) {
 
   }
+
+  onActivationTab(tab: TabDirective) {
+    this.activeTab = tab;
+    if (this.activeTab.heading === 'Messages') {
+      this.loadMessages();
+    }
+  }
+
+  loadMessages() {
+    this.messageService.getMessageThread(this.member?.userName!)
+      .subscribe({
+        next: value => {
+          this.messages = value;
+        }
+      })
+
+  }
+
 
   ngOnInit(): void {
     this.loadMember();

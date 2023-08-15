@@ -1,44 +1,96 @@
-  <div class="mb-4 mt-3 d-flex">
-    <div class="btn-group" name="container">
-      <button
-        [btnRadio]="'Unread'"
-        [(ngModel)]="container"
-        (click)="loadMessages()"
-        class="btn btn-primary" >
-        <i class="fa fa-envelope"></i> Unread
-      </button>
+<div class="mb-4 mt-3 d-flex">
+  <div class="btn-group" name="container">
+    <button
+      [btnRadio]="'Unread'"
+      [(ngModel)]="container"
+      (click)="loadMessages()"
+      class="btn btn-primary">
+      <i class="fa fa-envelope"></i> Unread
+    </button>
 
-      <button
-        [btnRadio]="'Unread'"
-        [(ngModel)]="container"
-        (click)="loadMessages()"
-        class="btn btn-primary" >
-        <i class="fa fa-envelope-open"></i> Inbox
-      </button>
+    <button
+      [btnRadio]="'Unread'"
+      [(ngModel)]="container"
+      (click)="loadMessages()"
+      class="btn btn-primary">
+      <i class="fa fa-envelope-open"></i> Inbox
+    </button>
 
-      <button
-        [btnRadio]="'Unread'"
-        [(ngModel)]="container"
-        (click)="loadMessages()"
-        class="btn btn-primary" >
-        <i class="fa fa-paper-plane"></i> Outbox
-      </button>
+    <button
+      [btnRadio]="'Unread'"
+      [(ngModel)]="container"
+      (click)="loadMessages()"
+      class="btn btn-primary">
+      <i class="fa fa-paper-plane"></i> Outbox
+    </button>
 
-    </div>
   </div>
+</div>
 
-  <div class="row" *ngIf="!messages">
-    <h3>  No Messages</h3>
-  </div>
+<div class="row" *ngIf="!messages || messages.length === 0">
+  <h3> No Messages</h3>
+</div>
 
-  <div class="row" *ngIf="messages">
-   <table style="cursor: pointer;" class="table table-hover">
-     <thead>
-     <tr>
-       <th style="width: 40%"></th>
-     </tr>
-     </thead>
-   </table>
-  </div>
+<div class="row" *ngIf="messages && messages.length > 0">
+  <table style="cursor: pointer;" class="table table-hover">
+    <thead>
+    <tr>
+      <th style="width: 40%">Messages</th>
+      <th style="width: 20%">From / To</th>
+      <th style="width: 20%">sent / Received</th>
+      <th style="width: 10%"></th>
+    </tr>
+    </thead>
+
+    <tbody class="align-middle">
+    <tr *ngFor="let message of messages"
+        routerLink="{{container==='Outbox'?'/members/'+ message.recipientUsername:
+        '/members/'+ message.senderUserName }}"  >
+      <td>
+        <div *ngIf="container === 'Outbox'">
+          <img
+            class="image-circle rounded-circle me-2"
+            src="{{message.recipientPhoto}}"
+            alt="{{message.recipientUsername }} photo">
+          <strong>
+            {{message.recipientUsername|titlecase}}
+          </strong>
+        </div>
+
+
+        <div *ngIf="container !== 'Outbox'">
+          <img
+            class="image-circle rounded-circle me-2"
+            src="{{message.senderPhotoUrl}}"
+            alt="{{message.senderUserName }} photo">
+          <strong>
+            {{message.senderUserName|titlecase}}
+          </strong>
+        </div>
+      </td>
+      <td>{{message.messageSent | date}}</td>
+      <td>
+        <button class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="justify-content-center d-flex"
+     *ngIf="pagination && messages && messages.length > 0">
+  <pagination [boundaryLinks]="true"
+              [totalItems]="33"
+              [itemsPerPage]="pagination.itemsPerPage"
+              [maxSize]="10"
+              [(ngModel)]="pagination.currentPage"
+              (pageChanged)="onPageChanged($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+  </pagination>
+</div>
 
 
